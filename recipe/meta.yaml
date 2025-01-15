@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari_bioimageio-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari_bioimageio-{{ version }}.tar.gz
   sha256: 7474b6aef715bc2933c61121a840532bc7a4717fba77a84f88a89395945af081
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
   run:
     - bioimageio.core >=0.5.1
     - napari
-    - python >=3.7
+    - python >={{ python_min }}
     - pyyaml >=6.0
 
 test:
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/bioimage-io/napari-bioimageio
